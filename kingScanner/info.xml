@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<uexplugins>
+    <plugin
+        uexName="kingScanner" version="5.0.0" build="7">
+        <info>7:修复Activity导出问题，修改为false</info>
+        <build>6:修改manifest中的uses-feature配置，防止与uexCamera冲突</build>
+        <build>5:添加动态权限申请</build>
+        <build>4:修正图片识别接口在主线程进行网络请求的问题</build>
+        <build>3:修复扫描返回json时，网页无法解析的问题</build>
+        <build>2:新增图像识别接口</build>
+        <build>1:优化扫描速度，解决图像变形问题</build>
+        <build>0:条形码二维码扫描功能插件</build>
+    </plugin>
+</uexplugins>

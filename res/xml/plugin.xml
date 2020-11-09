@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<uexplugins>
+	<plugin
+        className="org.zywx.wbpalmstar.plugin.kingscanner.KingScanner" uexName="kingScanner" >
+        <method name="open"/>
+        <method name="setJsonData"/>
+        <method name="recognizeFromImage"/>
+    </plugin>
+</uexplugins>

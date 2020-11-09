@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1.0, user-scalable=no" />
+    <link rel="stylesheet" type="text/css" href="css/index.css" />
+    <title>获取当前位置</title>
+    <script type="text/javascript">
+        var callback = function(data) {
+            var result = "data:" + JSON.stringify(data)
+            console.log(result);
+            alert(result);
+        };
+
+        function scannerOpen() {
+            uexScanner.open(callback);
+        }
+
+        function setJsonData() {
+            var jsonData = {
+                "lineImg":"res://line.png",
+                "pickBgImg":"res://pick_bg.png",
+                "tipLabel":"对准二维码/条形码,即可自动扫描",
+                "charset":"gbk",
+                "isGallery":"0"
+            };
+            uexScanner.setJsonData(JSON.stringify(jsonData));
+            uexScanner.open(callback);
+        }
+    </script>
+</head>
+<body>
+<div class="conbor">
+    <div class="consj">
+        <span>1.打开Scanner：</span>
+        <input class="btn" type="button" value="open" onclick="scannerOpen()" />
+        <span>2.setJsonData</span>
+        <input class="btn" type="button" value="setJsonData" onclick="setJsonData();" />
+    </div>
+</div>
+</body>
+</html>

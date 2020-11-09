@@ -1,0 +1,120 @@
+/*
+ * Copyright (c) 2015.  The AppCan Open Source Project.
+ *
+ *  This program is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU Lesser General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  This program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU Lesser General Public License for more details.
+ *
+ *  You should have received a copy of the GNU Lesser General Public License
+ *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ *
+ */
+buildscript {
+    repositories {
+        jcenter()
+        google()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:3.2.1'
+
+        // NOTE: Do not place your application dependencies here; they belong
+        // in the individual module build.gradle files
+    }
+}
+
+
+apply plugin: 'com.android.application'
+
+repositories {
+    flatDir {
+        dirs 'libs'
+    }
+    maven {
+        url 'https://raw.githubusercontent.com/android-plugin/mvn-repo/master/'
+    }
+    google()
+    mavenCentral()
+}
+
+dependencies {
+    dependencies {
+        implementation fileTree(dir: 'libs', include: '*.jar')
+        implementation('org.appcan:engine:4.4.27')
+//        implementation('com.king.zxing:zxing-lite:1.1.9')
+        implementation  'com.android.support:appcompat-v7:28.0.0'
+        implementation 'com.android.support:design:28.0.0'
+//        implementation 'com.android.support:compat:28.0.0'
+        api('com.google.zxing:core:3.3.3')
+        implementation "com.google.guava:guava:24.1-jre"
+//        implementation(name: 'Engine-system-release', ext: 'aar')
+        implementation 'com.android.support:multidex:1.0.3'  // 澶歞ex閰嶇疆
+    }
+}
+
+android {
+    compileSdkVersion 28
+//    buildToolsVersion "23.0.2"
+    lintOptions {
+        abortOnError false
+    }
+
+    packagingOptions {
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/NOTICE.txt'
+    }
+    lintOptions {
+        disable 'MissingTranslation'
+        disable 'GoogleAppIndexingWarning'
+        disable 'HardcodedDebugMode'
+    }
+    sourceSets {
+        main {
+            manifest.srcFile 'AndroidManifest.xml'
+            java.srcDirs = ['src']
+            resources.srcDirs = ['src']
+            aidl.srcDirs = ['src']
+            renderscript.srcDirs = ['src']
+            res.srcDirs = ['res']
+            assets.srcDirs = ['assets']
+            jniLibs.srcDirs = ['libs']
+        }
+    }
+
+    defaultConfig {
+        minSdkVersion 18
+        targetSdkVersion 28
+        applicationId "org.zywx.wbpalmstar.widgetone.uexScanner"
+        multiDexEnabled true
+    }
+    compileOptions {
+//        sourceCompatibility = '1.8'
+//        targetCompatibility = '1.8'
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    dexOptions {
+        javaMaxHeapSize "4g"
+    }
+    task makeJar(type: Copy) {
+        delete 'build/libs/test.jar'
+        from('build/intermediates/packaged-classes/debug/')
+        into('build/libs/')
+        include('classes.jar')
+        rename('classes.jar', 'test.jar')
+    }
+    makeJar.dependsOn(build)
+
+}
+allprojects {
+    repositories {
+        maven { url 'https://dl.bintray.com/jenly/maven' }
+    }
+}
+apply from: "https://raw.githubusercontent.com/android-plugin/gradle-plugin/master/buildPlugin.gradle"
